@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Collections.Generic;
 using ToDoList.Models;
+using System;
 
 namespace ToDoList.Tests
 {
   [TestClass]
   public class ItemTests : IDisposable
   {
+
     public void Dispose()
     {
       Item.ClearAll();
@@ -17,48 +17,67 @@ namespace ToDoList.Tests
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
-      Item newItem = new Item("test");
+      Item newItem = new("test");
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }
 
     [TestMethod]
     public void GetDescription_ReturnsDescription_String()
     {
+      //Arrange
       string description = "Walk the dog.";
-      Item newItem = new Item(description);
 
-      Assert.AreEqual(description, newItem.Description);
+      //Act
+      Item newItem = new(description);
+      string result = newItem.Description;
+
+      //Assert
+      Assert.AreEqual(description, result);
     }
 
     [TestMethod]
     public void SetDescription_SetDescription_String()
     {
+      //Arrange
       string description = "Walk the dog.";
-      Item newItem = new Item(description);
+      Item newItem = new(description);
 
+      //Act
       string updatedDescription = "Do the dishes";
       newItem.Description = updatedDescription;
+      string result = newItem.Description;
 
-      Assert.AreEqual(updatedDescription, newItem.Description);
+      //Assert
+      Assert.AreEqual(updatedDescription, result);
     }
 
     [TestMethod]
     public void GetAll_ReturnsEmptyList_ItemList()
     {
-      List<Item> newList = new List<Item> {};
-      CollectionAssert.AreEqual(newList, Item.GetAll());
+      // Arrange
+      List<Item> newList = new();
+
+      // Act
+      List<Item> result = Item.GetAll();
+
+      // Assert
+      CollectionAssert.AreEqual(newList, result);
     }
 
     [TestMethod]
     public void GetAll_ReturnsItems_ItemList()
     {
-      List<Item> newList = new List<Item> { 
-        new Item("Walk the dog"), 
-        new Item("Wash the dishes") 
-      };
+      //Arrange
+      string description01 = "Walk the dog";
+      string description02 = "Wash the dishes";
+      Item newItem1 = new(description01);
+      Item newItem2 = new(description02);
+      List<Item> newList = new() { newItem1, newItem2 };
 
+      //Act
       List<Item> result = Item.GetAll();
 
+      //Assert
       CollectionAssert.AreEqual(newList, result);
     }
   }

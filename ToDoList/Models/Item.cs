@@ -5,15 +5,17 @@ namespace ToDoList.Models
   public class Item
   {
     public string Description { get; set; }
-    private static List<Item> _instances = new List<Item> {};
+    public int Id { get; }
+    private static readonly List<Item> _instances = new();
 
-    public Item (string description)
+    public Item(string description)
     {
       Description = description;
       _instances.Add(this);
+      Id = _instances.Count;
     }
 
-    public static List<Item> GetAll ()
+    public static List<Item> GetAll()
     {
       return _instances;
     }
@@ -21,6 +23,10 @@ namespace ToDoList.Models
     public static void ClearAll()
     {
       _instances.Clear();
+    }
+    public static Item Find(int searchId)
+    {
+      return _instances[searchId-1];
     }
   }
 }
