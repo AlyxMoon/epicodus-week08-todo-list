@@ -73,14 +73,26 @@ namespace ToDoList.Tests
       string description01 = "Walk the dog";
       string description02 = "Wash the dishes";
       Item newItem1 = new(description01);
+      newItem1.Save();
       Item newItem2 = new(description02);
+      newItem2.Save();
       List<Item> newList = new() { newItem1, newItem2 };
 
-      //Act
       List<Item> result = Item.GetAll();
 
-      //Assert
       CollectionAssert.AreEqual(newList, result);
+    }
+
+    [TestMethod]
+    public void Save_SavesToDatabase_ItemList()
+    {
+      Item testItem = new("Mow the lawn");
+
+      testItem.Save();
+      List<Item> result = Item.GetAll();
+      List<Item> testList = new() { testItem };
+
+      CollectionAssert.AreEqual(testList, result);
     }
   }
 }

@@ -27,10 +27,8 @@ namespace ToDoList.Models
           Description == item.Description
         );
       }
-      else
-      {
-        return false;
-      }
+
+      return false;
     }
 
     public static List<Item> GetAll()
@@ -68,6 +66,26 @@ namespace ToDoList.Models
       conn.Close();
 
       if (conn != null) conn.Dispose();
+    }
+
+    public Item Save ()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand();
+
+      cmd.CommandText = @"INSERT INTO items (description) VALUES (@ItemDescription);";
+      MySqlParameter description = new();
+      description.ParameterName = "@ItemDescription";
+      description.Value = Description;
+      cmd.Parameters.Add(description);    
+      cmd.ExecuteNonQuery();
+      Id = (int) cmd.LastInsertedId;
+
+      conn.Close();
+      if (conn != null) conn.Dispose();
+
+      return this;
     }
 
     public static Item Find(int searchId)
