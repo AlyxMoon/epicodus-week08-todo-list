@@ -57,15 +57,12 @@ namespace ToDoList.Tests
     }
 
     [TestMethod]
-    public void GetAll_ReturnsEmptyList_ItemList()
+    public void GetAll_ReturnsEmptyListFromDatabase_ItemList()
     {
-      // Arrange
       List<Item> newList = new();
 
-      // Act
       List<Item> result = Item.GetAll();
 
-      // Assert
       CollectionAssert.AreEqual(newList, result);
     }
 
