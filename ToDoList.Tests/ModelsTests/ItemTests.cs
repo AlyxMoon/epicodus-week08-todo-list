@@ -14,6 +14,11 @@ namespace ToDoList.Tests
       Item.ClearAll();
     }
 
+    public ItemTests()
+    {
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=epicodus;port=3306;database=to_do_list_test;";
+    }
+
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
